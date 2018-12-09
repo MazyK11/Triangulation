@@ -5,9 +5,6 @@
  */
 package Triangulation;
 
-
-import java.awt.geom.Point2D;
-
 // class, which representing data structure Point3D
 public class Point3D {
 

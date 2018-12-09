@@ -55,14 +55,14 @@ public class Triangle {
     // method which calculates Exposition
     public double getExposition() {
         Point3D norm = this.getNormalVec();
-        double exposition = Math.atan(norm.getY() / norm.getX());
+        double expositionn = Math.atan(norm.getY() / norm.getX());
 
         // makes all numbers positive
         if (norm.getX() < 0) {
-            exposition = exposition + Math.PI;
+            expositionn = expositionn + Math.PI;
         }
 
         // from 0 to 2PI
-        return exposition + Math.PI / 2;
+        return expositionn + Math.PI / 2;
     }
 }
