@@ -12,9 +12,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import javax.swing.BorderFactory;
 
 // Drawing class
@@ -128,7 +130,7 @@ public class drawPanel extends javax.swing.JPanel {
                     gfx.setColor(new Color(255, 255 - exp, 0));
                 } // 270° - 360°
                 else {
-
+                    
                     // scales exposition to  0 - 255 scale and sets color
                     int exp = colorScale(t.exposition, (2 * Math.PI),
                             (6.0 / 4.0 * Math.PI));
@@ -201,6 +203,34 @@ public class drawPanel extends javax.swing.JPanel {
             contour.moveTo(e.p1.getX(), e.p1.getY());
             contour.lineTo(e.p2.getX(), e.p2.getY());
 
+            // get coordinates of A - the first end of the contour segment in scale
+            double x1 = (e.p1.getX() * width);
+            double y1 = ((1 - e.p1.getY()) * height);
+            
+             // get coordinates of B - the second end of the contour segment in scale
+            double x2 = (e.p2.getX() * width);
+            double y2 = ((1 - e.p2.getY()) * height);
+            
+            // calculate position of label (the center of segment line)
+            int eAvgX = (int) Math.abs((x1 + x2) / 2);
+            int eAvgY = (int) Math.abs((y1 + y2) / 2);
+
+            // calculate angle between segment and x-axis
+            double ux = (e.p2.getX() - e.p1.getX());
+            double vx = 0.001;
+            double uy = (e.p2.getY() - e.p1.getY());
+            double vy = 0;
+            double angle = Math.atan2(ux * vy - uy * vx, ux * vx + uy * vy);
+            angle = angle * (180 / Math.PI);
+            
+            // load value of label from z-coordinate
+            String text = String.valueOf ( Math.round ( e.p1.getZ() * 100.0 ) / 100.0 );
+            
+            if (e.random < 0.2) {
+                // rotate label in specified angle      
+                drawRotate(gfx, eAvgX, eAvgY, (int) angle, text);              
+            }
+
             // scales Path2D and draws it
             contour = affineTransform(contour, width, height);
             gfx.draw(contour);
@@ -223,7 +253,17 @@ public class drawPanel extends javax.swing.JPanel {
         double exp = (int) (255 * (a / b));
         return (int) exp;
     }
+    
+    // method, which rotate input string according to input angle in degrees
+    public static void drawRotate(Graphics2D g2d, double x, double y, int angle, String text) {
+        g2d.translate((float) x, (float) y);
+        g2d.rotate(Math.toRadians(angle));
+        g2d.drawString(text, 0, 0);
+        g2d.rotate(-Math.toRadians(angle));
+        g2d.translate(-(float) x, -(float) y);
+    }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

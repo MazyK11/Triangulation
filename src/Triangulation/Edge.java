@@ -6,12 +6,14 @@
 package Triangulation;
 
 // class, which representing data structure Edge
+
 public class Edge {
 
     //variables
     protected Point3D p1;
     protected Point3D p2;
     protected boolean thickness;
+    protected double random;
 
     // constructor
     public Edge(Point3D p1, Point3D p2) {
@@ -45,4 +47,5 @@ public class Edge {
     public Edge swappedEdge() {
         return new Edge(p2, p1);
     }
+    
 }

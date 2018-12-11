@@ -215,7 +215,7 @@ public class GUI extends javax.swing.JFrame {
 
                     // calculates slope in every triangle
                     for (Triangle t : drawPanel1.triangles) {
-
+                        
                         // converts it to degrees
                         t.slope = Math.toDegrees(t.getSlope());
                         t.exposition = -1;

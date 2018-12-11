@@ -10,6 +10,7 @@ import static java.lang.Math.sqrt;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 // Algorithm class, where almost all the counting is happening
 public class Algorithms {
@@ -288,7 +289,7 @@ public class Algorithms {
             if (p == null) {
                 continue;
             }
-
+            
             // creates edges and triangle
             e2 = new Edge(e.p2, p);
             e3 = new Edge(p, e.p1);
@@ -389,19 +390,21 @@ public class Algorithms {
         List<Point3D> ptsp1p2;
         List<Point3D> ptsp2p3;
         List<Point3D> ptsp3p1;
+        Random r = new Random();
 
         // calculates intersection points of contours for every edge of triangle
         ptsp1p2 = calcContourPoints(t.p1, t.p2, interval);
         ptsp2p3 = calcContourPoints(t.p2, t.p3, interval);
         ptsp3p1 = calcContourPoints(t.p3, t.p1, interval);
-
+        
         // cycle through a lists of intersection points and creates a line
         // from points with the same height 
         for (Point3D p : ptsp1p2) {
             for (Point3D p2 : ptsp2p3) {
                 if (p.getZ() == p2.getZ()) {
                     Edge e = new Edge(p, p2);
-
+                    e.random = r.nextDouble();
+                    
                     // highlighted contour
                     if ((p.getZ() / interval) % 5 == 0) {
                         e.thickness = true;
@@ -415,6 +418,7 @@ public class Algorithms {
             for (Point3D p2 : ptsp3p1) {
                 if (p.getZ() == p2.getZ()) {
                     Edge e = new Edge(p, p2);
+                    e.random = r.nextDouble();
                     if ((p.getZ() / interval) % 5 == 0) {
                         e.thickness = true;
                     }
@@ -427,6 +431,7 @@ public class Algorithms {
             for (Point3D p2 : ptsp3p1) {
                 if (p.getZ() == p2.getZ()) {
                     Edge e = new Edge(p, p2);
+                    e.random = r.nextDouble();
                     if ((p.getZ() / interval) % 5 == 0) {
                         e.thickness = true;
                     }
