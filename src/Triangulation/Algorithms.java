@@ -390,7 +390,6 @@ public class Algorithms {
         List<Point3D> ptsp1p2;
         List<Point3D> ptsp2p3;
         List<Point3D> ptsp3p1;
-        Random r = new Random();
 
         // calculates intersection points of contours for every edge of triangle
         ptsp1p2 = calcContourPoints(t.p1, t.p2, interval);
@@ -403,7 +402,6 @@ public class Algorithms {
             for (Point3D p2 : ptsp2p3) {
                 if (p.getZ() == p2.getZ()) {
                     Edge e = new Edge(p, p2);
-                    e.random = r.nextDouble();
                     
                     // highlighted contour
                     if ((p.getZ() / interval) % 5 == 0) {
@@ -418,7 +416,6 @@ public class Algorithms {
             for (Point3D p2 : ptsp3p1) {
                 if (p.getZ() == p2.getZ()) {
                     Edge e = new Edge(p, p2);
-                    e.random = r.nextDouble();
                     if ((p.getZ() / interval) % 5 == 0) {
                         e.thickness = true;
                     }
@@ -431,7 +428,6 @@ public class Algorithms {
             for (Point3D p2 : ptsp3p1) {
                 if (p.getZ() == p2.getZ()) {
                     Edge e = new Edge(p, p2);
-                    e.random = r.nextDouble();
                     if ((p.getZ() / interval) % 5 == 0) {
                         e.thickness = true;
                     }

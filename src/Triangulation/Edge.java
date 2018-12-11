@@ -7,6 +7,9 @@ package Triangulation;
 
 // class, which representing data structure Edge
 
+import java.util.Random;
+
+
 public class Edge {
 
     //variables
@@ -17,9 +20,11 @@ public class Edge {
 
     // constructor
     public Edge(Point3D p1, Point3D p2) {
+        Random r = new Random();
         this.p1 = p1;
         this.p2 = p2;
         thickness = false;
+        random = r.nextDouble();
     }
 
     // method, which changes the orientation of the edge
