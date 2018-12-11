@@ -223,9 +223,16 @@ public class drawPanel extends javax.swing.JPanel {
             double angle = Math.atan2(ux * vy - uy * vx, ux * vx + uy * vy);
             angle = angle * (180 / Math.PI);
             
-            // load value of label from z-coordinate
-            String text = String.valueOf ( Math.round ( e.p1.getZ() * 100.0 ) / 100.0 );
-            
+            String text;
+            if(e.p1.getZ() < 1){
+               // load value of label from z-coordinate
+               text = String.valueOf ( Math.round ( e.p1.getZ() * 10000.0 ) / 100.0 );
+            }
+            else{
+                // load value of label from z-coordinate
+                text = String.valueOf ( Math.round ( e.p1.getZ() * 100.0 ) / 100.0 );
+            }
+
             if (e.random < 0.2) {
                 // rotate label in specified angle      
                 drawRotate(gfx, eAvgX, eAvgY, (int) angle, text);              
